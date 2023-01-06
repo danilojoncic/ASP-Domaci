@@ -2,4 +2,4 @@
 Domaci rad iz predmeta Algoritmi i Strukture Podataka na RAF-u
 1. zadatak je uradjen u C++
 2. zadatak je uradjen u C-u
-Tekst zadataka je okacen u folderu "tekst.txt"
+/nTekst zadataka je okacen u folderu "tekst.txt"
