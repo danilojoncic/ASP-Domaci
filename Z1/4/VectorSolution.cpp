@@ -88,10 +88,8 @@ vector<int> divide_by_two_array(vector<int> number)
 
         temp = (temp % divisor) * 10 + number[++idx];
     }
-
     if (ans.size() == 0)
         return {0};
-
     return ans;
 }
 
@@ -108,12 +106,10 @@ vector<int> decrement(vector<int> a) {
         i--;
     }
     a[i] -= 1;
-
     i = 0;
     while (a[i] == 0) {
         a.erase(a.begin());
     }
-
     return a;
 }
 
@@ -170,7 +166,7 @@ vector<int> binarna(vector<int> x, vector<int> y)
 
 void ask(vector<int> a) {
     cout<<"? ";
-    for (int i = 0; i < a.size(); i++) {
+    for (int i = 0; i < a.size()-1; i++) {
         cout<<a[i];
     }
     cout<<endl;
@@ -186,9 +182,7 @@ int main()
     while (1)
     {
         ask(x);
-
         cin >> res;
-
         if (res == 1)
         {
             final_result = binarna(prev, x);
