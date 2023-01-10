@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+
+#define MAX_QUEUE_SIZE 1000
 
 typedef struct node{
     int val;
@@ -65,7 +68,7 @@ node_t *rotirajLijevo(node_t *root){
 }
 
 node_t *kreirajCvor(int val, node_t *parent){
-    node_t *n = malloc(sizeof(node_t));
+    node_t *n = (malloc(sizeof(node_t)));
     n->val = val;
     n->parent = parent;
     n->height = 1;
@@ -120,6 +123,7 @@ node_t *dodaj(node_t *root, int val){
     } while (curr->parent);
     return curr;
 }
+
 void printAVLStablo(node_t *root, int level){
     if (root == NULL)
         return;
@@ -131,28 +135,94 @@ void printAVLStablo(node_t *root, int level){
     printAVLStablo(root->left, level + 1);
 }
 
-int main(){
-    //opcija za brisanje nije uradjena
-    //kod je isproban na primjeru sa vjezbi u decembru
-    printf("Unesi prvi element:\n");
+node_t *brisanje(node_t *root, int val){
+    if (root == NULL) return NULL;
+    if (val < root->val)
+        root->left = brisanje(root->left, val);
+    else if (val > root->val)
+        root->right = brisanje(root->right, val);
+    else {
+        if (root->left == NULL && root->right == NULL){
+            free(root);
+            return NULL;
+        }
+        else if (root->left == NULL){
+            node_t *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL){
+            node_t *temp = root->left;
+            free(root);
+            return temp;
+        }
+        else{
+            node_t *temp = root->right;
+            while (temp->left) temp = temp->left;
+            root->val = temp->val;
+            root->right = brisanje(root->right, temp->val);
+        }
+    }
+    podesiVisinu(root);
+    return balansiraj(root);
+}
+void meni(){
+    printf("[1] Dodaj element u AVL stablo\n");
+    printf("[2] Obrisi element iz AVL stabla\n");
+    printf("[3] Izadji iz programa\n");
+}
+int main() {
+    printf("AVL stablo, sve rotacije se izvrsavaju automatski uslijed dodavanja ili brisanja\n");
+    printf("pri unosenju broja 0, bilo koja mogucnost se prekida i korisnik se vraca nazad u meni,\n");
+    printf("\nUnesi prvi element:\n");
     int num;
-    scanf("%d",&num);
+    scanf("%d", &num);
     node_t *root = kreirajCvor(num, NULL);
-    printf("Usao sam u u petlju dodavanja,kada si zadovoljan unosom, pritisni nulu!\n");
-    printf("Sve rotacije se rade automatski, jedina opcija jeste dodavanje, stablo se stampa 	horiznotalno!\n");
-    while(1){
-        int vrijednost;
-        printf("Unesi vrijednost za iduci cvor: ");
-        scanf("%d",&vrijednost);
-        if(vrijednost == 0){
-            break;
-        }else{
-            root = dodaj(root, vrijednost);
-            printf("--------------------------\n");
-            printAVLStablo(root, root->height);
-            printf("--------------------------\n");
+    while (1) {
+        meni();
+        int opcija;
+        scanf("%d", &opcija);
+        switch (opcija) {
+            case 1:
+                printf("[Dodavanje]\n");
+                while (1) {
+                    int vrijednost;
+                    printf("Unesi vrijednost za iduci cvor: ");
+                    scanf("%d", &vrijednost);
+                    if (vrijednost == 0) {
+                        printf("[Kraj dodavanja]\n");
+                        break;
+                    } else {
+                        root = dodaj(root, vrijednost);
+                        printf("--------------------------\n");
+                        printAVLStablo(root, root->height);
+                        printf("--------------------------\n");
+                    }
+                }
+                break;
+            case 2:
+                printf("[Brisanje]\n");
+                while (1) {
+                    int obrisi;
+                    printf("Vrijednost za brisanje : ");
+                    scanf("%d", &obrisi);
+                    if (obrisi == 0) {
+                        printf("[Kraj brisanja]\n");
+                        break;
+                    } else {
+                        root = brisanje(root, obrisi);
+                        printf("--------------------------\n");
+                        printAVLStablo(root, root->height);
+                        printf("--------------------------\n");
+                    }
+                }
+                break;
+            case 3:
+                printf("[Kraj programa]\n");
+                return 0;
+            default:
+                printf("Unesi broj koji odgovara zadatim mogucnostima\n");
         }
     }
     return 0;
 }
-
