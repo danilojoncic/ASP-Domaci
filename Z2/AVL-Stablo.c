@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 
-#define MAX_QUEUE_SIZE 1000
 
 typedef struct node{
     int val;
@@ -47,6 +45,8 @@ node_t *rotirajDesno(node_t *root){
 
     podesiVisinu(root);
     podesiVisinu(new_root);
+    printf("Doslo je do desne rotacije!\n");
+    printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
     return new_root;
 }
 
@@ -64,6 +64,8 @@ node_t *rotirajLijevo(node_t *root){
 
     podesiVisinu(root);
     podesiVisinu(new_root);
+    printf("Doslo je do lijeve rotacije!\n");
+    printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
     return new_root;
 }
 
@@ -131,7 +133,7 @@ void printAVLStablo(node_t *root, int level){
     for (int i = 0; i < level; i++) {
         printf("          ");
     }
-    printf("[%d]-\n", root->val);
+    printf("[%d]<\n", root->val);
     printAVLStablo(root->left, level + 1);
 }
 
@@ -166,14 +168,21 @@ node_t *brisanje(node_t *root, int val){
     podesiVisinu(root);
     return balansiraj(root);
 }
+
 void meni(){
     printf("[1] Dodaj element u AVL stablo\n");
     printf("[2] Obrisi element iz AVL stabla\n");
     printf("[3] Izadji iz programa\n");
 }
+void formatPrint(node_t *root, int level){
+    printf("__________________________\n");
+    printAVLStablo(root, level);
+    printf("__________________________\n");
+}
+
 int main() {
     printf("AVL stablo, sve rotacije se izvrsavaju automatski uslijed dodavanja ili brisanja\n");
-    printf("pri unosenju broja 0, bilo koja mogucnost se prekida i korisnik se vraca nazad u meni,\n");
+    printf("pri unosenju broja 0, bilo koja mogucnost se prekida i korisnik se vraca nazad u meni\n");
     printf("\nUnesi prvi element:\n");
     int num;
     scanf("%d", &num);
@@ -194,9 +203,7 @@ int main() {
                         break;
                     } else {
                         root = dodaj(root, vrijednost);
-                        printf("--------------------------\n");
-                        printAVLStablo(root, root->height);
-                        printf("--------------------------\n");
+                        formatPrint(root,root->height);
                     }
                 }
                 break;
@@ -211,9 +218,7 @@ int main() {
                         break;
                     } else {
                         root = brisanje(root, obrisi);
-                        printf("--------------------------\n");
-                        printAVLStablo(root, root->height);
-                        printf("--------------------------\n");
+                        formatPrint(root,root->height);
                     }
                 }
                 break;
