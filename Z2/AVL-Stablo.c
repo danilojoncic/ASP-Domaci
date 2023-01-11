@@ -19,18 +19,15 @@ node_t *trazi(node_t *root, int val){
     else
         return root;
 }
-
 int visina(node_t *root){
     return root ? root->height : 0;
 }
 int max(int a, int b) {
     return a > b ? a : b;
 }
-
 void podesiVisinu(node_t *root){
     root->height = 1 + max(visina(root->left), visina(root->right));
 }
-
 node_t *rotirajDesno(node_t *root){
     node_t *new_root = root->left;
     if (root->parent){
@@ -45,11 +42,10 @@ node_t *rotirajDesno(node_t *root){
 
     podesiVisinu(root);
     podesiVisinu(new_root);
-    printf("Doslo je do desne rotacije!\n");
     printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
+    printf("[DESNA ROTACIJA]\n");
     return new_root;
 }
-
 node_t *rotirajLijevo(node_t *root){
     node_t *new_root = root->right;
     if (root->parent){
@@ -64,11 +60,10 @@ node_t *rotirajLijevo(node_t *root){
 
     podesiVisinu(root);
     podesiVisinu(new_root);
-    printf("Doslo je do lijeve rotacije!\n");
     printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
+    printf("[LIJEVA ROTACIJA]\n");
     return new_root;
 }
-
 node_t *kreirajCvor(int val, node_t *parent){
     node_t *n = (malloc(sizeof(node_t)));
     n->val = val;
@@ -131,9 +126,17 @@ void printAVLStablo(node_t *root, int level){
         return;
     printAVLStablo(root->right, level + 1);
     for (int i = 0; i < level; i++) {
-        printf("          ");
+        printf("         ");
     }
-    printf("[%d]<\n", root->val);
+    if(root->right && root ->left) {
+        printf("[%d]--{\n", root->val);
+    }else if(root ->right && root->left == NULL){
+        printf("[%d]--/ \n", root->val);
+    }else if(root->left && root->right == NULL){
+        printf("[%d]--\\\n", root->val);
+    }else if(root->parent){
+        printf("--[%d]\n", root->val);
+    }
     printAVLStablo(root->left, level + 1);
 }
 
@@ -196,7 +199,7 @@ int main() {
                 printf("[Dodavanje]\n");
                 while (1) {
                     int vrijednost;
-                    printf("Unesi vrijednost za iduci cvor: ");
+                    printf("Unesi vrijednost za iduci cvor: \n");
                     scanf("%d", &vrijednost);
                     if (vrijednost == 0) {
                         printf("[Kraj dodavanja]\n");
