@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//AVL Stablo 3.0
 
 typedef struct node{
     int val;
@@ -10,6 +11,15 @@ typedef struct node{
     int height;
 } node_t;
 
+node_t *kreirajCvor(int val, node_t *parent){
+    node_t *novi = (malloc(sizeof(node_t)));
+    novi->val = val;
+    novi->parent = parent;
+    novi->height = 1;
+    novi->left = NULL;
+    novi->right = NULL;
+    return novi;
+}
 node_t *trazi(node_t *root, int val){
     if (root == NULL) return NULL;
     if (val < root->val)
@@ -19,33 +29,18 @@ node_t *trazi(node_t *root, int val){
     else
         return root;
 }
-int visina(node_t *root){
-    return root ? root->height : 0;
-}
+
 int max(int a, int b) {
     return a > b ? a : b;
+}
+
+int visina(node_t *root){
+    return root ? root->height : 0;
 }
 void podesiVisinu(node_t *root){
     root->height = 1 + max(visina(root->left), visina(root->right));
 }
-node_t *rotirajDesno(node_t *root){
-    node_t *new_root = root->left;
-    if (root->parent){
-        if (root->parent->left == root) root->parent->left = new_root;
-        else root->parent->right = new_root;
-    }
-    new_root->parent = root->parent;
-    root->parent = new_root;
-    root->left = new_root->right;
-    if (root->left) root->left->parent = root;
-    new_root->right = root;
 
-    podesiVisinu(root);
-    podesiVisinu(new_root);
-    printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
-    printf("[DESNA ROTACIJA]\n");
-    return new_root;
-}
 node_t *rotirajLijevo(node_t *root){
     node_t *new_root = root->right;
     if (root->parent){
@@ -64,15 +59,26 @@ node_t *rotirajLijevo(node_t *root){
     printf("[LIJEVA ROTACIJA]\n");
     return new_root;
 }
-node_t *kreirajCvor(int val, node_t *parent){
-    node_t *n = (malloc(sizeof(node_t)));
-    n->val = val;
-    n->parent = parent;
-    n->height = 1;
-    n->left = NULL;
-    n->right = NULL;
-    return n;
+
+node_t *rotirajDesno(node_t *root){
+    node_t *new_root = root->left;
+    if (root->parent){
+        if (root->parent->left == root) root->parent->left = new_root;
+        else root->parent->right = new_root;
+    }
+    new_root->parent = root->parent;
+    root->parent = new_root;
+    root->left = new_root->right;
+    if (root->left) root->left->parent = root;
+    new_root->right = root;
+
+    podesiVisinu(root);
+    podesiVisinu(new_root);
+    printf("[ROTIRANI CVOR] : [%d]\n",new_root->val);
+    printf("[DESNA ROTACIJA]\n");
+    return new_root;
 }
+
 node_t *balansiraj(node_t *root){
     if (visina(root->left) - visina(root->right) > 1){
         if (visina(root->left->left) > visina(root->left->right)){
@@ -120,26 +126,6 @@ node_t *dodaj(node_t *root, int val){
     } while (curr->parent);
     return curr;
 }
-
-void printAVLStablo(node_t *root, int level){
-    if (root == NULL)
-        return;
-    printAVLStablo(root->right, level + 1);
-    for (int i = 0; i < level; i++) {
-        printf("         ");
-    }
-    if(root->right && root ->left) {
-        printf("[%d]--{\n", root->val);
-    }else if(root ->right && root->left == NULL){
-        printf("[%d]--/ \n", root->val);
-    }else if(root->left && root->right == NULL){
-        printf("[%d]--\\\n", root->val);
-    }else if(root->parent){
-        printf("--[%d]\n", root->val);
-    }
-    printAVLStablo(root->left, level + 1);
-}
-
 node_t *brisanje(node_t *root, int val){
     if (root == NULL) return NULL;
     if (val < root->val)
@@ -172,15 +158,35 @@ node_t *brisanje(node_t *root, int val){
     return balansiraj(root);
 }
 
+void printAVLStablo(node_t *root, int level){
+    if (root == NULL)
+        return;
+    printAVLStablo(root->right, level + 1);
+    for (int i = 0; i < level; i++) {
+        printf("         ");
+    }
+    if(root->right && root ->left) {
+        printf("[%d]--{\n", root->val);
+    }else if(root ->right && root->left == NULL){
+        printf("[%d]--/ \n", root->val);
+    }else if(root->left && root->right == NULL){
+        printf("[%d]--\\\n", root->val);
+    }else if(root->parent){
+        printf("--[%d]\n", root->val);
+    }
+    printAVLStablo(root->left, level + 1);
+}
+
+void formatPrint(node_t *root){
+    printf("__________________________\n");
+    printAVLStablo(root, root->height);
+    printf("__________________________\n");
+}
+
 void meni(){
     printf("[1] Dodaj element u AVL stablo\n");
     printf("[2] Obrisi element iz AVL stabla\n");
     printf("[3] Izadji iz programa\n");
-}
-void formatPrint(node_t *root, int level){
-    printf("__________________________\n");
-    printAVLStablo(root, level);
-    printf("__________________________\n");
 }
 
 int main() {
@@ -206,7 +212,7 @@ int main() {
                         break;
                     } else {
                         root = dodaj(root, vrijednost);
-                        formatPrint(root,root->height);
+                        formatPrint(root);
                     }
                 }
                 break;
@@ -221,7 +227,7 @@ int main() {
                         break;
                     } else {
                         root = brisanje(root, obrisi);
-                        formatPrint(root,root->height);
+                        formatPrint(root);
                     }
                 }
                 break;
