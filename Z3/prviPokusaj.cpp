@@ -56,11 +56,11 @@ int main() {
             cin >> matrix[i][j];
         }
     }
+    BFS(matrix,0,0,res,visited,ponavljanje);
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            BFS(matrix, i, j,res, visited, ponavljanje);
-        }
+    if(n == 1){
+        cout<<matrix[0][0];
+        return 0;
     }
 
     int min_num = INT_MAX;
