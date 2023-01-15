@@ -1,0 +1,100 @@
+Prvi podzadatak
+Data je zgrada koja ima N spratova, označenih brojevima od 1 do N.
+U zgradi postoji sprat X, sa kog kada se baci jaje na zemlju, puca.
+Sa bilo kog sprata ispod X bačeno jaje će ostati netaknuto, a sa bilo kog sprata iznad X će takođe pući.
+Potrebno je da nađete sprat X u što manje bacanja.
+
+Na raspolaganju imate beskonačno jaja.
+
+Napomena: Kada se jaje baci sa zemlje i ne pukne, može se ponovo koristiti za neko drugo bacanje.
+
+Napomena: Test primer će biti tačan ako broj bacanja ne pređe određen broj bacanja za test primer.
+
+Ovaj zadatak je interaktivan, odnosno ulaz u vaš program će zavisiti od njegovog ispisa.
+Prva linija ulaza je uvek ista i to je N, broj spratova u datom test primeru.
+Nakon toga se očekuje da vaš program ispiše komandu oblika ? x, gde je x broj sprata sa koga se baca jaje.
+Za svaku komandu ovog tipa dobićete odgovor na ulazu koji može biti 0 (jaje nije puklo) ili 1 (jaje je puklo).
+Kada ste sigurni da ste odredili sprat X, ispisujete komandu oblika ! x, gde je x broj sprata X iz postavke zadatka.
+
+Drugi podzadatak
+Data je zgrada koja ima N spratova, označenih brojevima od 1 do N.
+U zgradi postoji sprat X, sa kog kada se baci jaje na zemlju, puca.
+Sa bilo kog sprata ispod X bačeno jaje će ostati netaknuto, a sa bilo kog sprata iznad X će takođe pući.
+Potrebno je da nađete sprat X u što manje bacanja.
+
+Na raspolaganju imate dva jaja.
+
+Napomena: Kada se jaje baci sa zemlje i ne pukne, može se ponovo koristiti za neko drugo bacanje.
+
+Napomena: Test primer će biti tačan ako broj bacanja ne pređe određen broj bacanja za test primer, i ako se koriste dozvoljeni potezi.
+
+Napomena: Ovo je lakša verzija zadatka (Broj bacanja ispod koga se rešenje smatra tačnim je veći).
+
+Napomena: Ispis komandi je identičan kao u prethodinm podzadacima
+
+Treći podzadatak
+Data je zgrada koja ima N spratova, označenih brojevima od 1 do N.
+U zgradi postoji sprat X, sa kog kada se baci jaje na zemlju, puca.
+Sa bilo kog sprata ispod X bačeno jaje će ostati netaknuto, a sa bilo kog sprata iznad X će takođe pući.
+Potrebno je da nađete sprat X u što manje bacanja.
+
+Na raspolaganju imate dva jaja.
+
+Napomena: Kada se jaje baci sa zemlje i ne pukne, može se ponovo koristiti za neko drugo bacanje.
+
+Napomena: Test primer će biti tačan ako broj bacanja ne pređe određen broj bacanja za test primer, i ako se koriste dozvoljeni potezi.
+
+Napomena: Ovo je teža verzija zadatka (Broj bacanja ispod koga se rešenje smatra tačnim je manji).
+
+Napomena: Ispis komandi je identičan kao u prethodnim podzadacima
+
+Četvrti podzadatak
+Data je zgrada koja ima beskonačno spratova
+U zgradi postoji sprat X, sa kog kada se baci jaje na zemlju, puca.
+Sa bilo kog sprata ispod X bačeno jaje će ostati netaknuto, a sa bilo kog sprata iznad X će takođe pući.
+Potrebno je da nađete sprat X u što manje bacanja.
+
+Na raspolaganju imate beskonačno jaja.
+
+Napomena: Kada se jaje baci sa zemlje i ne pukne, može se ponovo koristiti za neko drugo bacanje.
+
+Napomena: Test primer će biti tačan ako broj bacanja ne pređe određen broj bacanja za test primer.
+
+Napomena: Brojevi spratova mogu biti veći od brojeva podržanih numeričkim tipovima u jeziku C++.
+
+Napomena: N nije dato u ovom podzadatku, osim toga ulaz i izlaz funkcionišu isto kao u prethodnim podzadacima
+
+Grafički prikaz rotacija AVL stabla
+Potrebno je napraviti program za komandnu liniju u jeziku po izboru u kom treba da omogućite prikaz AVL stabla nakon dodavanja/brisanja čvorova.
+Izgled AVL stabla potrebno je prikazati nakon svake rotacije (LL,LR,RL,RR).
+Potrebno je da se čvorovi i veze jasno vide u konzoli nakon svakog ispisa.
+Način prikaza se ostavlja studentima.
+
+Napomena: Ovaj zadatak se šalje mejlom.
+
+Napomena: 3 poena nosi ceo zadatak. 2 poena se dobija za jednu implementiranu operaciju(brisanje/dodavanje).
+
+Pajine merdevine
+Paja voli da se penje po zgradama.
+On se našao u stambenom bloku koji se može predstaviti kao matrica dimenzija N x N, gde svako polje u matrici predstavlja visinu jedne zgrade.
+Paja može da se popne (ili siđe) sa vrha jedne zgrade na neku drugu ako su one susedne u matrici (gore, dole, levo, desno) i ako je razlika njihovih visina manja ili jednaka od dužine Pajinih merdevina.
+Pomozite Paji da odredi koliko najmanje treba da budu dugačke njegove merdevine, da bi on mogao da obiđe barem polovinu zgrada. Ukoliko je broj zgrada neparan, polovina se zaokružuje na gore.
+Dozvoljeno je da u obilasku više puta stane na istu zgradu, ali se ona računa samo jednom u ukupnom broju zgrada koje je obišao.
+Paja može da počne kretanje sa bilo koje zgrade.
+
+U prvoj liniji ulaza unosi se prorodan broj N.     (N <= 500)
+Zatim se u narednih N redova unosi po N nenegativnih brojeva odvojenih razmakom koji predstavljaju visine zgrada.    (visina <= 10 000 000)
+
+Potrebno je ispisati jedan broj, najmanju dužinu merdevina pomoću kojih može da obiđe barem polovinu zgrada.
+
+primer:
+
+5
+0 0 0 3 3
+0 0 0 0 3
+0 9 9 3 3
+9 9 9 3 3
+9 9 9 9 3
+
+rešenje:
+3
